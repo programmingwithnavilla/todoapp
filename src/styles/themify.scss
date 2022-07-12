@@ -1,0 +1,10 @@
+@mixin styles($mode) {
+  @each $key, $map in $themes {
+    @each $prop, $color in $map {
+      @if $prop == $key {
+        @debug ($prop);
+        --#{$key}: #{$color};
+      }
+    }
+  }
+}

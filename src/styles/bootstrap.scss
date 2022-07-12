@@ -1,15 +1,35 @@
+@import "theme";
 
-$darkLiver: rgba(84, 73, 75, 1);
-$isabelline: rgba(241, 247, 237, 1);
-$etonBlue: rgba(145, 199, 177, 1);
-$dingyDungeon: rgba(179, 57, 81, 1);
-$flax: rgba(227, 208, 129, 1);
+$primary: #126fb5;
+$secondary: #ff5437;
+$success: #4fe3c2;
+$base: #ffffff;
+$themeSelected: "dark";
 
-$theme-colors: (
-  "primary": $isabelline,
-  "secondary": $darkLiver,
-  "light": $etonBlue,
-  "dark": $dingyDungeon
+@function styles($mode) {
+  $current-theme: map-get($themes, $mode);
+  @return (
+    "primary": map-get($current-theme, primary),
+    "secondary": map-get($current-theme, secondary),
+    "success": map-get($current-theme, success),
+    "light": map-get($current-theme, base)
+  );
+  // $theme-colors: (
+  //   "primary": map-get($current-theme, primary),
+  //   "secondary": map-get($current-theme, secondary),
+  //   "light": map-get($current-theme, light),
+  //   "dark": map-get($current-theme, dark),
+  // );
+  // @each $type, $theme in $themes {
+  //   @each $prop, $color in $theme {
+  //     --#{$prop}: #{$col};
+  //   }
+
+  // }
+}
+
+$theme-colors: styles(
+  $mode: $themeSelected,
 );
 
 @import "node_modules/bootstrap/scss/bootstrap";
