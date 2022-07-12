@@ -4,7 +4,7 @@ import "./index.scss";
 
 const App = () => {
   return (
-    <div className="navigation-buttons ">
+    <div className="col d-flex">
       <Router />
     </div>
   );
