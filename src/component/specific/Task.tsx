@@ -10,6 +10,7 @@ interface ITask {
   isEdit: Boolean;
   updateTask: Function;
   deleteTask: Function;
+  changeStatus: Function;
 }
 const Task = ({
   id,
@@ -19,6 +20,7 @@ const Task = ({
   isEdit,
   updateTask,
   deleteTask,
+  changeStatus,
 }: ITask): JSX.Element => {
   let [title, setTitle] = useState("");
   let [prorityTask, setPrority] = useState("low");
@@ -26,15 +28,54 @@ const Task = ({
     <div className={"task"} draggable="true">
       <div className="task__tags">
         <Conditional checkRender={!isEdit}>
-          <span className={`task__tag task__tag--${prority}`}>{prority}</span>
-          <button
-            className="btn-delete mx-1"
-            onClick={() => {
-              deleteTask(status, id);
-            }}
-          >
-            Del
-          </button>
+          <>
+            <button
+              className="btn-task  task-delete mx-1"
+              onClick={() => {
+                deleteTask(status, id);
+              }}
+            >
+              Del
+            </button>
+            <button
+              className="btn-task  task-edit mx-1"
+              onClick={() => {
+                deleteTask(status, id);
+              }}
+            >
+              Edit
+            </button>
+            <Conditional checkRender={status === "backlog"}>
+              <button
+                className="btn-task  task-done mx-1"
+                onClick={() => {
+                  changeStatus("Inprogress", id);
+                }}
+              >
+                Inprogres
+              </button>
+            </Conditional>
+            <Conditional checkRender={status === "inprogres"}>
+              <button
+                className="btn-task  task-done mx-1"
+                onClick={() => {
+                  changeStatus("done", id);
+                }}
+              >
+                Done
+              </button>
+            </Conditional>
+            <Conditional checkRender={status === "done"}>
+              <button
+                className="btn-task  task-done mx-1"
+                onClick={() => {
+                  changeStatus("backlog", id);
+                }}
+              >
+                Backlog
+              </button>
+            </Conditional>
+          </>
         </Conditional>
         <Conditional checkRender={isEdit}>
           <div className="col d-flex justify-content-between">
@@ -93,7 +134,10 @@ const Task = ({
         />
       </Conditional>
       <Conditional checkRender={!isEdit}>
-        <p>{taskTitle}</p>
+        <>
+          <p>{taskTitle}</p>
+          <span className={`task__tag task__tag--${prority}`}>{prority}</span>
+        </>
       </Conditional>
     </div>
   );

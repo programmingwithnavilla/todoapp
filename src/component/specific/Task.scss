@@ -56,24 +56,25 @@
   border: 3px dashed var(--light-grey) !important;
 }
 
-.btn-delete {
+.btn-task {
   border: 0.8px solid #fff;
-  color: #c70c25;
-  background: rgba(192, 12, 95, 0.06);
+
   border-radius: 8px;
   padding: 2px 13px;
   font-weight: 400;
   font-size: 12px;
   -webkit-border-radius: 8px;
 }
-
-.leave-enter-active,
-.leave-leave-active {
-  transform-origin: 50% 50%;
-  transition: transform 0.5s cubic-bezier(0.61, 1, 0.88, 1);
-  transition-property: transform, opacity;
+.task-delete {
+  color: #c70c25;
+  background: rgba(192, 12, 95, 0.06);
 }
-.leave-enter,
-.leave-leave-to {
-  transform: scale(0) rotate(-60deg);
+
+.task-edit {
+  color: #0c2ec7;
+  background: rgba(12, 46, 199, 0.06);
+}
+.task-done {
+  color: #096c86;
+  background: rgba(21, 102, 5, 0.06%);
 }

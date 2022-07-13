@@ -8,26 +8,6 @@ type Istate = {
   count: number; // like this
   list: any;
 };
-// list: [
-//   {
-//     id: 1,
-//     taskTitle: "Konsep hero title yang menarik",
-//     prority: "low",
-//     isEdit: false,
-//   },
-//   {
-//     id: 2,
-//     taskTitle: "Icon di section our services",
-//     prority: "medium",
-//     isEdit: false,
-//   },
-//   {
-//     id: 3,
-//     taskTitle: "services",
-//     prority: "high",
-//     isEdit: false,
-//   },
-// ],
 class Home extends React.Component<any, Istate> {
   state: Istate = {
     count: 0,
@@ -42,7 +22,6 @@ class Home extends React.Component<any, Istate> {
     console.log(localStorage);
     if (localStorage.getItem("tasks")) {
       let tasks = groupBy(JSON.parse(localStorage.getItem("tasks")!), "status");
-      console.log("tasks", tasks);
       this.setState({ list: tasks });
     }
   };
@@ -82,7 +61,6 @@ class Home extends React.Component<any, Istate> {
     this.fetchAllTask();
   };
   deleteTask = (type: string, id: string) => {
-    const { list } = this.state;
     let tasks = JSON.parse(localStorage.getItem("tasks")!);
     tasks.splice(
       tasks.findIndex((x: any) => x.id === id),
@@ -90,7 +68,13 @@ class Home extends React.Component<any, Istate> {
     );
     localStorage.setItem("tasks", JSON.stringify(tasks));
     this.fetchAllTask();
-    // this.setState({ list });
+  };
+
+  changeStatus = (status: string, id: string) => {
+    let tasks = JSON.parse(localStorage.getItem("tasks")!);
+    tasks.find((task: any) => task.id === id).status = status;
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    this.fetchAllTask();
   };
   render() {
     const { list } = this.state;
@@ -131,6 +115,7 @@ class Home extends React.Component<any, Istate> {
                     {...lst}
                     updateTask={this.updateTask}
                     deleteTask={this.deleteTask}
+                    changeStatus={this.changeStatus}
                   />
                 ))}
             </div>
@@ -155,6 +140,7 @@ class Home extends React.Component<any, Istate> {
                     {...lst}
                     updateTask={this.updateTask}
                     deleteTask={this.deleteTask}
+                    changeStatus={this.changeStatus}
                   />
                 ))}
             </div>
@@ -179,6 +165,7 @@ class Home extends React.Component<any, Istate> {
                     {...lst}
                     updateTask={this.updateTask}
                     deleteTask={this.deleteTask}
+                    changeStatus={this.changeStatus}
                   />
                 ))}
             </div>
