@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Task from "../../component/specific/Task";
 import "./home.scss";
 type MyProps = {
   // using `interface` is also ok
@@ -6,10 +7,61 @@ type MyProps = {
 };
 type MyState = {
   count: number; // like this
+  list: any;
 };
 class Home extends React.Component<MyProps, MyState> {
   state: MyState = {
     count: 0,
+    list: [
+      {
+        id: 1,
+        taskTitle: "Konsep hero title yang menarik",
+        prority: "low",
+        isEdit: false,
+      },
+      {
+        id: 2,
+        taskTitle: "Icon di section our services",
+        prority: "medium",
+        isEdit: false,
+      },
+      {
+        id: 3,
+        taskTitle: "services",
+        prority: "high",
+        isEdit: false,
+      },
+    ],
+  };
+
+  addTask = (type: String) => {
+    const { list } = this.state;
+    list.unshift({
+      id: 3,
+      taskTitle: "",
+      type: "",
+      isEdit: true,
+    });
+
+    this.setState({ list });
+  };
+  updateTask = (type: String, task: any) => {
+    console.log("update task", task);
+    const { list } = this.state;
+    let index = list.findIndex((lst: any) => lst.id === task.id);
+    if (index != -1) {
+      list[index] = task;
+      this.setState({ list });
+    }
+  };
+  deleteTask = (type: String, id: string) => {
+    const { list } = this.state;
+    console.log("id", id);
+    list.splice(
+      list.findIndex((x: any) => x.id === id),
+      1
+    );
+    this.setState({ list });
   };
   render() {
     return (
@@ -68,8 +120,20 @@ class Home extends React.Component<MyProps, MyState> {
                   </div>
                   <span className="badge mx-2">2</span>
                 </div>
-                <button className="btm-new-item mx-1">New Item</button>
+                <button
+                  className="btm-new-item mx-1"
+                  onClick={() => this.addTask("inProgress")}
+                >
+                  New Item
+                </button>
               </div>
+              {this.state.list.map((lst: any) => (
+                <Task
+                  {...lst}
+                  updateTask={this.updateTask}
+                  deleteTask={this.deleteTask}
+                />
+              ))}
             </div>
             <div className="project-column px-3">
               <div className="project-column-heading  py-2 rounded px-1 mt-2 mb-3">
