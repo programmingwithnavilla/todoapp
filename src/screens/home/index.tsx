@@ -27,12 +27,15 @@ class Home extends React.Component<MyProps, MyState> {
             </div>
           </div>
           <div className="project-tasks">
-            <div className="project-column">
-              <div className="project-column-heading">
-                <h2 className="project-column-heading__title m-0">
-                  Task Ready
-                </h2>
-                <span className="badge">2</span>
+            <div className="project-column px-3">
+              <div className="project-column-heading  py-2 rounded px-1 mt-2 mb-3">
+                <div className="d-flex">
+                  <div className="project-column-heading__title h2 m-0">
+                    Back Log
+                  </div>
+                  <span className="badge mx-2">2</span>
+                </div>
+                <button className="btm-new-item mx-1">New Item</button>
               </div>
               <div className="task" draggable="true">
                 <div className="task__tags">
@@ -57,26 +60,26 @@ class Home extends React.Component<MyProps, MyState> {
                 <p>Konsep hero title yang menarik</p>
               </div>
             </div>
-            <div className="project-column">
-              <div className="project-column-heading">
-                <h2 className="project-column-heading__title m-0">
-                  In Progress
-                </h2>
-                <span className="badge">2</span>
+            <div className="project-column px-3">
+              <div className="project-column-heading  py-2 rounded px-1 mt-2 mb-3">
+                <div className="d-flex">
+                  <div className="project-column-heading__title h2 m-0">
+                    In Progress
+                  </div>
+                  <span className="badge mx-2">2</span>
+                </div>
+                <button className="btm-new-item mx-1">New Item</button>
               </div>
             </div>
-            <div className="project-column">
-              <div className="project-column-heading">
-                <h2 className="project-column-heading__title m-0">
-                  Needs Review
-                </h2>
-                <span className="badge">2</span>
-              </div>
-            </div>
-            <div className="project-column">
-              <div className="project-column-heading">
-                <h2 className="project-column-heading__title m-0">Done</h2>
-                <span className="badge">2</span>
+            <div className="project-column px-3">
+              <div className="project-column-heading  py-2 rounded px-1 mt-2 mb-3">
+                <div className="d-flex">
+                  <div className="project-column-heading__title h2 m-0">
+                    Done
+                  </div>
+                  <span className="badge mx-2">2</span>
+                </div>
+                <button className="btm-new-item mx-1">New Item</button>
               </div>
             </div>
           </div>

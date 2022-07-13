@@ -31,7 +31,8 @@ body {
 }
 
 .app {
-  background-color: var(--bg);
+  // background-color: var(--bg);
+  background-color: #f3f6fd;
   width: 100%;
   min-height: 100vh;
 }
@@ -44,7 +45,9 @@ h1 {
   max-width: 75%;
   width: 100%;
   display: inline-block;
-
+  background: white;
+  margin: 20px;
+  border-radius: 18px;
   &-info {
     padding: 2rem 0;
     display: flex;
@@ -80,16 +83,19 @@ h1 {
 
   &-tasks {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     width: 100%;
     grid-column-gap: 1.5rem;
   }
   &-column {
+    background: #f2f6fa;
+    border-radius: 18px;
     &-heading {
       margin-bottom: 1rem;
       @include display;
       justify-content: space-between;
       &__title {
+        color: #425a7b;
         font-size: 20px;
       }
     }
@@ -155,7 +161,6 @@ h1 {
   border: 3px dashed var(--light-grey) !important;
 }
 .task-details {
-  width: 24%;
   border-left: 1px solid #d9e0e9;
   display: inline-block;
   height: 100%;
@@ -222,6 +227,20 @@ h1 {
   line-height: 1;
   padding: 0.15em 0.34em;
   vertical-align: middle;
+}
+
+.btm-new-item {
+  border: 0.8px solid #fff;
+  color: #0c2ec7;
+  background: rgba(12, 46, 199, 0.06);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-weight: 400;
+  font-size: 12px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
 }
 // text-transform: uppercase;
 //     background-color: #4158D0;
