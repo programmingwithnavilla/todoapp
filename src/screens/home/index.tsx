@@ -46,7 +46,6 @@ class Home extends React.Component<MyProps, MyState> {
     this.setState({ list });
   };
   updateTask = (type: String, task: any) => {
-    console.log("update task", task);
     const { list } = this.state;
     let index = list.findIndex((lst: any) => lst.id === task.id);
     if (index != -1) {
@@ -56,7 +55,6 @@ class Home extends React.Component<MyProps, MyState> {
   };
   deleteTask = (type: String, id: string) => {
     const { list } = this.state;
-    console.log("id", id);
     list.splice(
       list.findIndex((x: any) => x.id === id),
       1

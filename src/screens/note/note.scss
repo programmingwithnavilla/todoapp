@@ -1,0 +1,110 @@
+.btn-grad {
+  background-image: linear-gradient(
+    to right,
+    #000046 0%,
+    #1cb5e0 51%,
+    #000046 100%
+  );
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+.note {
+  padding: 2rem;
+  background: white;
+  margin: 20px;
+  border-radius: 18px;
+  min-height: 80vh;
+}
+.note-item {
+  background: #ccccff;
+  padding: 1.7em 1em 3em 1em;
+  background-color: rgb(255, 244, 215);
+  border-radius: 12px;
+  font-size: 1rem;
+  text-align: justify;
+}
+.note-title {
+  font-size: 1.5rem;
+}
+
+.note-description {
+  font-size: 0.9rem;
+}
+
+.note-date {
+  font-size: small;
+}
+
+.circle {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  margin-right: 8px;
+  border: 1px solid #cccbcb;
+  cursor: pointer;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.bg-yellow {
+  background-color: #fee4cb;
+}
+
+.bg-purple {
+  background-color: #e9e7fd;
+}
+.bg-blue {
+  background-color: #dbf6fd;
+}
+
+.bg-pink {
+  background-color: #ffd3e2;
+}
+
+.bg-green {
+  background-color: #c8f7dc;
+}
+
+.note-btn {
+  border: 0.8px solid #fff;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 8px;
+  padding: 2px 13px;
+  font-weight: 400;
+  font-size: 12px;
+  -webkit-border-radius: 8px;
+}
+.btn-delete {
+  color: #df3670;
+}
+.btn-edit {
+  color: #096c86;
+}
