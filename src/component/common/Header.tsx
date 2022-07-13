@@ -8,7 +8,7 @@ const Header = ({ message }: AppProps) => (
   <div className="header d-flex align-items-center justify-content-between position-relative">
     <div className="header-left">
       <span className="header-icon" />
-      <p className="header-name mx-4 my-2 px-2">Portfolio</p>
+      <p className="header-name mx-4 my-2 px-2">Task Management</p>
       <div className="search-wrapper rounded-pill">
         <input className="search-input" type="text" placeholder="Search" />
         <svg

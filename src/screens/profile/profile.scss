@@ -113,6 +113,43 @@
     }
   }
 }
+.profile {
+  padding: 2rem;
+  background: white;
+  margin: 20px;
+  border-radius: 18px;
+  min-height: 80vh;
+  .navy-color {
+    color: #4c5276 !important;
+  }
+  .card-border-radius {
+    border-radius: 1rem !important;
+  }
+  .profile-img {
+    width: 82px;
+    height: 82px;
+  }
+  .gray-color {
+    color: gray;
+  }
+  .border-gray {
+    border-color: rgb(229, 227, 227) !important;
+  }
+  .card-min-height {
+    min-height: 50vh !important;
+    height: 50vh !important;
+  }
+  input {
+    border: 1px solid rgb(229, 227, 227) !important ;
+    border-radius: 5px !important;
+    padding: 5px;
+    width: 26vw !important;
+  }
+  &:focus {
+    outline-color: #719ece !important;
+    box-shadow: 0 0 10px #719ece;
+  }
+}
 
 .add-participant {
   width: 20px;
