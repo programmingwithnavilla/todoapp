@@ -1,67 +1,100 @@
 import React, { Component } from "react";
 import Task from "../../component/specific/Task";
+import { groupBy } from "../../utils/consts/index";
+import { v4 as uuidv4 } from "uuid";
 import "./home.scss";
-type MyProps = {
-  // using `interface` is also ok
-  message?: string;
-};
-type MyState = {
+
+type Istate = {
   count: number; // like this
   list: any;
 };
-class Home extends React.Component<MyProps, MyState> {
-  state: MyState = {
+// list: [
+//   {
+//     id: 1,
+//     taskTitle: "Konsep hero title yang menarik",
+//     prority: "low",
+//     isEdit: false,
+//   },
+//   {
+//     id: 2,
+//     taskTitle: "Icon di section our services",
+//     prority: "medium",
+//     isEdit: false,
+//   },
+//   {
+//     id: 3,
+//     taskTitle: "services",
+//     prority: "high",
+//     isEdit: false,
+//   },
+// ],
+class Home extends React.Component<any, Istate> {
+  state: Istate = {
     count: 0,
-    list: [
-      {
-        id: 1,
-        taskTitle: "Konsep hero title yang menarik",
-        prority: "low",
-        isEdit: false,
-      },
-      {
-        id: 2,
-        taskTitle: "Icon di section our services",
-        prority: "medium",
-        isEdit: false,
-      },
-      {
-        id: 3,
-        taskTitle: "services",
-        prority: "high",
-        isEdit: false,
-      },
-    ],
+    list: {},
   };
 
-  addTask = (type: String) => {
-    const { list } = this.state;
-    list.unshift({
-      id: 3,
-      taskTitle: "",
-      type: "",
-      isEdit: true,
-    });
+  componentDidMount() {
+    this.fetchAllTask();
+  }
 
-    this.setState({ list });
-  };
-  updateTask = (type: String, task: any) => {
-    const { list } = this.state;
-    let index = list.findIndex((lst: any) => lst.id === task.id);
-    if (index != -1) {
-      list[index] = task;
-      this.setState({ list });
+  fetchAllTask = () => {
+    console.log(localStorage);
+    if (localStorage.getItem("tasks")) {
+      let tasks = groupBy(JSON.parse(localStorage.getItem("tasks")!), "status");
+      console.log("tasks", tasks);
+      this.setState({ list: tasks });
     }
   };
-  deleteTask = (type: String, id: string) => {
+  addTask = (type: string) => {
     const { list } = this.state;
-    list.splice(
-      list.findIndex((x: any) => x.id === id),
-      1
-    );
+    if (list[type])
+      list[type].unshift({
+        id: uuidv4(),
+        taskTitle: "",
+        type: "",
+        status: type,
+        isEdit: true,
+      });
+    else {
+      console.log("nabud");
+      list[type] = [
+        {
+          id: uuidv4(),
+          taskTitle: "",
+          type: "",
+          status: type,
+          isEdit: true,
+        },
+      ];
+    }
+    console.log("after", list[type]);
     this.setState({ list });
   };
+  updateTask = (type: string, task: any) => {
+    const { list } = this.state;
+    let tasks = [];
+    console.log(type, task);
+    if (localStorage.getItem("tasks"))
+      tasks = JSON.parse(localStorage.getItem("tasks")!);
+    tasks.push(task);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    this.fetchAllTask();
+  };
+  deleteTask = (type: string, id: string) => {
+    const { list } = this.state;
+    let tasks = JSON.parse(localStorage.getItem("tasks")!);
+    tasks.splice(
+      tasks.findIndex((x: any) => x.id === id),
+      1
+    );
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    this.fetchAllTask();
+    // this.setState({ list });
+  };
   render() {
+    const { list } = this.state;
+    let listIsEmpty = Object.keys(list).length === 0;
     return (
       <div className="app">
         <main className="project">
@@ -83,32 +116,23 @@ class Home extends React.Component<MyProps, MyState> {
                   <div className="project-column-heading__title h2 m-0">
                     Back Log
                   </div>
-                  <span className="badge mx-2">2</span>
                 </div>
-                <button className="btm-new-item mx-1">New Item</button>
+                <button
+                  className="btm-new-item mx-1"
+                  onClick={() => this.addTask("backlog")}
+                >
+                  New Item
+                </button>
               </div>
-              <div className="task" draggable="true">
-                <div className="task__tags">
-                  <span className="task__tag task__tag--copyright">
-                    Copywriting
-                  </span>
-                </div>
-                <p>Konsep hero title yang menarik</p>
-              </div>
-              <div className="task" draggable="true">
-                <div className="task__tags">
-                  <span className="task__tag task__tag--design">UI Design</span>
-                </div>
-                <p>Icon di section our services</p>
-              </div>
-              <div className="task" draggable="true">
-                <div className="task__tags">
-                  <span className="task__tag task__tag--copyright">
-                    Copywriting
-                  </span>
-                </div>
-                <p>Konsep hero title yang menarik</p>
-              </div>
+              {!listIsEmpty &&
+                list.backlog &&
+                list.backlog.map((lst: any) => (
+                  <Task
+                    {...lst}
+                    updateTask={this.updateTask}
+                    deleteTask={this.deleteTask}
+                  />
+                ))}
             </div>
             <div className="project-column px-3">
               <div className="project-column-heading  py-2 rounded px-1 mt-2 mb-3">
@@ -116,22 +140,23 @@ class Home extends React.Component<MyProps, MyState> {
                   <div className="project-column-heading__title h2 m-0">
                     In Progress
                   </div>
-                  <span className="badge mx-2">2</span>
                 </div>
                 <button
                   className="btm-new-item mx-1"
-                  onClick={() => this.addTask("inProgress")}
+                  onClick={() => this.addTask("inprogres")}
                 >
                   New Item
                 </button>
               </div>
-              {this.state.list.map((lst: any) => (
-                <Task
-                  {...lst}
-                  updateTask={this.updateTask}
-                  deleteTask={this.deleteTask}
-                />
-              ))}
+              {!listIsEmpty &&
+                list.inprogres &&
+                list.inprogres.map((lst: any) => (
+                  <Task
+                    {...lst}
+                    updateTask={this.updateTask}
+                    deleteTask={this.deleteTask}
+                  />
+                ))}
             </div>
             <div className="project-column px-3">
               <div className="project-column-heading  py-2 rounded px-1 mt-2 mb-3">
@@ -139,10 +164,23 @@ class Home extends React.Component<MyProps, MyState> {
                   <div className="project-column-heading__title h2 m-0">
                     Done
                   </div>
-                  <span className="badge mx-2">2</span>
                 </div>
-                <button className="btm-new-item mx-1">New Item</button>
+                <button
+                  className="btm-new-item mx-1"
+                  onClick={() => this.addTask("done")}
+                >
+                  New Item
+                </button>
               </div>
+              {!listIsEmpty &&
+                list.done &&
+                list.done.map((lst: any) => (
+                  <Task
+                    {...lst}
+                    updateTask={this.updateTask}
+                    deleteTask={this.deleteTask}
+                  />
+                ))}
             </div>
           </div>
         </main>

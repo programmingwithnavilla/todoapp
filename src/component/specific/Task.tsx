@@ -6,6 +6,7 @@ interface ITask {
   id: string;
   taskTitle: string;
   prority: string;
+  status: string;
   isEdit: Boolean;
   updateTask: Function;
   deleteTask: Function;
@@ -14,6 +15,7 @@ const Task = ({
   id,
   taskTitle,
   prority,
+  status,
   isEdit,
   updateTask,
   deleteTask,
@@ -28,7 +30,7 @@ const Task = ({
           <button
             className="btn-delete mx-1"
             onClick={() => {
-              deleteTask("inprogress", id);
+              deleteTask(status, id);
             }}
           >
             Del
@@ -75,12 +77,14 @@ const Task = ({
             setTitle(event.currentTarget.value);
           }}
           onKeyUp={(event) => {
+            console.log("id", id);
             if (event.key === "Enter") {
-              updateTask("inprogres", {
+              updateTask(status, {
                 id,
                 taskTitle: title,
                 prority: prorityTask,
                 isEdit: false,
+                status: status,
               });
               setTitle("");
               setPrority("low");

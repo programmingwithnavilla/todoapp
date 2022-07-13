@@ -15,18 +15,16 @@ const Signup = lazy(() => import("../screens/signup"));
 const Router = () => {
   return (
     <Suspense fallback={<div>loading</div>}>
-      <BrowserRouter>
-        <Routes>
-          {/* <Navbar /> */}
-          <Route path="/" element={<Home />} />
-          <Route path={generalRoutes.home} element={<Home />} />
-          <Route path={noteRoutes.note} element={<Note />} />
-          <Route path={profileRoutes.profile} element={<Profile />} />
-          <Route path={profileRoutes.signIn} element={<Signin />} />
-          <Route path={profileRoutes.signUp} element={<Signup />} />
-          <Route path={generalRoutes.notFound} element={<Notfound />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        {/* <Navbar /> */}
+        <Route path="/" element={<Home />} />
+        <Route path={generalRoutes.home} element={<Home />} />
+        <Route path={noteRoutes.note} element={<Note />} />
+        <Route path={profileRoutes.profile} element={<Profile />} />
+        <Route path={profileRoutes.signIn} element={<Signin />} />
+        <Route path={profileRoutes.signUp} element={<Signup />} />
+        <Route path={generalRoutes.notFound} element={<Notfound />} />
+      </Routes>
     </Suspense>
   );
 };
