@@ -1,0 +1,135 @@
+.header {
+  width: 100%;
+  padding: 16px 24px;
+  &-left,
+  &-right {
+    display: flex;
+    align-items: center;
+  }
+
+  &-left {
+    flex-grow: 1;
+  }
+
+  &-right button {
+    margin-left: 10px;
+  }
+  &-icon {
+    width: 26px;
+    height: 2px;
+    border-radius: 4px;
+    background-color: var(--main-color);
+    position: relative;
+
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 2px;
+      border-radius: 4px;
+      background-color: var(--main-color);
+      left: 50%;
+      transform: translatex(-50%);
+    }
+
+    &:before {
+      top: -6px;
+    }
+    &:after {
+      bottom: -6px;
+    }
+  }
+
+  &-name {
+    color: var(--main-color);
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+}
+
+.mode-switch {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  color: var(--main-color);
+}
+.search-wrapper {
+  background-color: var(--search-area-bg);
+  padding-right: 12px;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 480px;
+  color: var(--light-font);
+  box-shadow: 0 2px 6px 0 rgba(136, 148, 171, 0.2),
+    0 24px 20px -24px rgba(71, 82, 107, 0.1);
+  overflow: hidden;
+
+  .dark & {
+    box-shadow: none;
+  }
+}
+
+.search-input {
+  border: none;
+  flex: 1;
+  outline: none;
+  height: 100%;
+  padding: 0 20px;
+  font-size: 16px;
+  background-color: var(--search-area-bg);
+  color: var(--main-color);
+
+  &:placeholder {
+    color: var(--main-color);
+    opacity: 0.6;
+  }
+}
+.add-btn {
+  color: #fff;
+  background-color: var(--button-bg);
+  width: 32px;
+  height: 32px;
+}
+
+.notification-btn {
+  color: var(--main-color);
+  background-color: transparent;
+  height: 32px;
+}
+
+.profile-btn {
+  background-color: transparent;
+  padding-left: 12px;
+  border-left: 2px solid #ddd;
+
+  img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 4px;
+  }
+
+  span {
+    color: var(--main-color);
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 700;
+  }
+}
+@media screen and (max-width: 520px) {
+  .header {
+    padding: 16px 10px;
+  }
+  .search-input {
+    max-width: 120px;
+  }
+  .search-input {
+    font-size: 14px;
+  }
+}

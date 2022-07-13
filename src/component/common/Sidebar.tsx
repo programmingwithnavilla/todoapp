@@ -5,7 +5,7 @@ type AppProps = {
 };
 
 const Sidebar = ({ message }: AppProps) => (
-  <div className="app-sidebar">
+  <div className="app-sidebar d-flex flex-column align-items-center">
     <a href="" className="app-sidebar-link active">
       <svg
         xmlns="http://www.w3.org/2000/svg"

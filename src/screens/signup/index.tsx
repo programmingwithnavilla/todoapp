@@ -1,17 +1,40 @@
-import React, { Component } from "react";
+import React, { Component, FormEvent } from "react";
+import { withRouter } from "../../Hoc/WithRouter";
 import "./signup.scss";
-type MyProps = {
-  // using `interface` is also ok
-  message?: string;
-};
-type MyState = {
-  count: number; // like this
-};
-class Signup extends React.Component<MyProps, MyState> {
-  state: MyState = {
-    count: 0,
+interface IState {
+  firstName: string;
+  lastName: string;
+  userName: string;
+  password: string;
+}
+class Signup extends Component<any, IState> {
+  state: IState = {
+    firstName: "",
+    lastName: "",
+    userName: "",
+    password: "",
+  };
+
+  inputOnchange = (event: FormEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
+    let newState = { [name]: value } as Pick<IState, any>;
+    this.setState(newState);
+  };
+
+  signup = () => {
+    let users: any = [];
+    if (localStorage.getItem("users")) {
+      users = JSON.parse(localStorage.getItem("users")!);
+      users.push(this.state);
+      localStorage.setItem("users", JSON.stringify(users));
+    } else {
+      users.push(this.state);
+      localStorage.setItem("users", JSON.stringify(users));
+    }
+    this.props.navigate("/home");
   };
   render() {
+    const { firstName, lastName, userName, password } = this.state;
     return (
       <section className="h-100 gradient-form">
         <div className="container py-3 py-sm-5 h-100">
@@ -40,10 +63,11 @@ class Signup extends React.Component<MyProps, MyState> {
                             FirstName
                           </label>
                           <input
-                            type="email"
-                            id="form2Example11"
+                            type="text"
+                            name="firstName"
+                            value={firstName}
+                            onChange={this.inputOnchange}
                             className="form-control"
-                            placeholder="Phone number or email address"
                           />
                         </div>
                         <div className="form-outline mb-4">
@@ -54,10 +78,11 @@ class Signup extends React.Component<MyProps, MyState> {
                             LastName
                           </label>
                           <input
-                            type="email"
-                            id="form2Example11"
+                            type="text"
+                            name="lastName"
+                            value={lastName}
+                            onChange={this.inputOnchange}
                             className="form-control"
-                            placeholder="Phone number or email address"
                           />
                         </div>
                         <div className="form-outline mb-4">
@@ -68,8 +93,10 @@ class Signup extends React.Component<MyProps, MyState> {
                             UserName
                           </label>
                           <input
-                            type="password"
-                            id="form2Example22"
+                            type="text"
+                            name="userName"
+                            value={userName}
+                            onChange={this.inputOnchange}
                             className="form-control"
                           />
                         </div>
@@ -82,14 +109,22 @@ class Signup extends React.Component<MyProps, MyState> {
                           </label>
                           <input
                             type="password"
+                            name="password"
+                            value={password}
+                            onChange={this.inputOnchange}
                             id="form2Example22"
                             className="form-control"
                           />
                         </div>
                         <div className="text-center pt-1 mb-3 pb-1">
                           <button
-                            className="col-12 btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 text-white border-0"
+                            className="col-12 btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 text-white border-0
+                            rounded py-2
+                            "
                             type="button"
+                            onClick={() => {
+                              this.signup();
+                            }}
                           >
                             sign in
                           </button>
@@ -119,4 +154,4 @@ class Signup extends React.Component<MyProps, MyState> {
   }
 }
 
-export default Signup;
+export default withRouter(Signup);

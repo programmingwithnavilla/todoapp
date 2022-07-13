@@ -1,17 +1,40 @@
-import React, { Component } from "react";
+import React, { Component, FormEvent } from "react";
+import { withRouter } from "../../Hoc/WithRouter";
 import "./signin.scss";
-type MyProps = {
-  // using `interface` is also ok
-  message?: string;
-};
-type MyState = {
-  count: number; // like this
-};
-class Signin extends React.Component<MyProps, MyState> {
-  state: MyState = {
-    count: 0,
+
+interface IState {
+  userName: string;
+  password: string;
+}
+class Signin extends Component<any, IState> {
+  state: IState = {
+    userName: "",
+    password: "",
   };
+
+  inputOnchange = (event: FormEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
+    let newState = { [name]: value } as Pick<IState, any>;
+    this.setState(newState);
+  };
+  signin = () => {
+    const { userName, password } = this.state;
+
+    if (localStorage.getItem("users")) {
+      let users = JSON.parse(localStorage.getItem("users")!);
+      if (
+        users.find(
+          (user: any) =>
+            user.userName === userName && user.password === password
+        )
+      ) {
+        this.props.navigate("/home");
+      } else console.error("ss");
+    } else console.error("ss");
+  };
+
   render() {
+    const { userName, password } = this.state;
     return (
       <section className="h-100 gradient-form">
         <div className="container py-4 py-sm-5 h-100">
@@ -35,15 +58,16 @@ class Signin extends React.Component<MyProps, MyState> {
                         <div className="form-outline mb-4">
                           <label
                             className="form-label"
-                            htmlFor="form2Example11"
+                            htmlFor="form2Example22"
                           >
-                            Username
+                            UserName
                           </label>
                           <input
-                            type="email"
-                            id="form2Example11"
+                            type="text"
+                            name="userName"
+                            value={userName}
+                            onChange={this.inputOnchange}
                             className="form-control"
-                            placeholder="Phone number or email address"
                           />
                         </div>
                         <div className="form-outline mb-4">
@@ -51,20 +75,24 @@ class Signin extends React.Component<MyProps, MyState> {
                             className="form-label"
                             htmlFor="form2Example22"
                           >
-                            Password
+                            password
                           </label>
                           <input
                             type="password"
+                            name="password"
+                            value={password}
+                            onChange={this.inputOnchange}
                             id="form2Example22"
                             className="form-control"
                           />
                         </div>
                         <div className="text-center pt-1 mb-5 pb-1">
                           <button
-                            className="col-12 btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 text-white border-0 py-2 rounded"
+                            className="col-12 btn btn-primary btn-block fa-lg gradient-custom-2 mb-3 text-white border-0 rounded py-2"
                             type="button"
+                            onClick={this.signin}
                           >
-                            Sign in
+                            Log in
                           </button>
                           <a className="text-muted" href="#!">
                             Forgot password?
@@ -104,4 +132,5 @@ class Signin extends React.Component<MyProps, MyState> {
   }
 }
 
-export default Signin;
+// export default Signin;
+export default withRouter(Signin);
