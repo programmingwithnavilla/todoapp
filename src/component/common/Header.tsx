@@ -89,7 +89,10 @@ const Header = ({ message }: AppProps) => (
         </svg>
       </button>
       <button className="profile-btn d-flex align-items-center border-0 p-0">
-        <img src="https://assets.codepen.io/3306515/IMG_2025.jpg" />
+        <img
+          src="https://assets.codepen.io/3306515/IMG_2025.jpg"
+          alt="userImage"
+        />
         <span>Aybüke C.</span>
       </button>
     </div>
