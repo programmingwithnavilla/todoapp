@@ -183,11 +183,13 @@ class Home extends React.Component<any, Istate> {
             </div>
           </div>
         </main>
-        <aside className="task-details">
+        <aside className="w-25 task-details">
           <Conditional checkRender={notes.length > 0}>
             <div>
               {notes.map((note: any) => (
-                <Note {...note} />
+                <div key={note.id}>
+                  <Note {...note} />
+                </div>
               ))}
             </div>
           </Conditional>

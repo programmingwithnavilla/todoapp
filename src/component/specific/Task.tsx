@@ -116,7 +116,7 @@ const Task = ({
       <Conditional checkRender={editStatus === "edit"}>
         <input
           placeholder="Enter a title for this card…"
-          className="col-12 rounded border p-1 mt-3 border-0"
+          className="col-12 rounded border p-1 mt-3 mb-1 border-0"
           value={title}
           onChange={(event) => {
             setTitle(event.currentTarget.value);
@@ -135,6 +135,24 @@ const Task = ({
             }
           }}
         />
+      </Conditional>
+      <Conditional checkRender={editStatus === "edit"}>
+        <button
+          className="btn-task  task-done mx-0 mt-1 pt-1"
+          onClick={() => {
+            insertTask(status, {
+              id,
+              taskTitle: title,
+              prority: prorityTask,
+              editStatus: "",
+              status: status,
+            });
+            setTitle("");
+            setPrority("low");
+          }}
+        >
+          Submit
+        </button>
       </Conditional>
       <Conditional checkRender={isEdit}>
         <input
@@ -158,6 +176,25 @@ const Task = ({
             }
           }}
         />
+      </Conditional>
+      <Conditional checkRender={isEdit}>
+        <button
+          className="btn-task  task-done mx-0 mt-1 pt-1"
+          onClick={() => {
+            updateTask({
+              id,
+              taskTitle: title,
+              prority: prorityTask,
+              editStatus: "",
+              status: status,
+            });
+            setIsEdit(false);
+            setTitle("");
+            setPrority("low");
+          }}
+        >
+          Update
+        </button>
       </Conditional>
       <Conditional checkRender={editStatus === "" && !isEdit}>
         <>
