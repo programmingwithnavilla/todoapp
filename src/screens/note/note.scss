@@ -5,25 +5,6 @@
   border-radius: 18px;
   min-height: 80vh;
 }
-.note-item {
-  background: #ccccff;
-  padding: 1.7em 1em 3em 1em;
-  background-color: rgb(255, 244, 215);
-  border-radius: 12px;
-  font-size: 1rem;
-  text-align: justify;
-}
-.note-title {
-  font-size: 1.5rem;
-}
-
-.note-description {
-  font-size: 0.9rem;
-}
-
-.note-date {
-  font-size: small;
-}
 
 .circle {
   width: 2rem;
@@ -36,25 +17,6 @@
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
-}
-
-.bg-yellow {
-  background-color: #fee4cb;
-}
-
-.bg-purple {
-  background-color: #e9e7fd;
-}
-.bg-blue {
-  background-color: #dbf6fd;
-}
-
-.bg-pink {
-  background-color: #ffd3e2;
-}
-
-.bg-green {
-  background-color: #c8f7dc;
 }
 
 .note-btn {

@@ -22,12 +22,7 @@ class Note extends React.Component<any, IState> {
   }
   fetchAllNote = () => {
     if (localStorage.getItem("notes")) {
-      this.setState(
-        { notes: JSON.parse(localStorage.getItem("notes")!) },
-        () => {
-          console.log("this.state", this.state);
-        }
-      );
+      this.setState({ notes: JSON.parse(localStorage.getItem("notes")!) });
     }
   };
   addNote = () => {

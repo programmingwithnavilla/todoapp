@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Task from "../../component/specific/Task";
+import Note from "../../component/specific/Note";
+import { Conditional } from "../../utils/consts/index";
 import { groupBy } from "../../utils/consts/index";
 import { v4 as uuidv4 } from "uuid";
 import "./home.scss";
@@ -7,22 +9,31 @@ import "./home.scss";
 type Istate = {
   count: number; // like this
   list: any;
+  notes: any;
 };
 class Home extends React.Component<any, Istate> {
   state: Istate = {
     count: 0,
     list: {},
+    notes: [],
   };
 
   componentDidMount() {
     this.fetchAllTask();
+    this.fetchNote();
   }
 
   fetchAllTask = () => {
-    console.log(localStorage);
     if (localStorage.getItem("tasks")) {
       let tasks = groupBy(JSON.parse(localStorage.getItem("tasks")!), "status");
       this.setState({ list: tasks });
+    }
+  };
+  fetchNote = () => {
+    if (localStorage.getItem("notes")) {
+      this.setState({
+        notes: JSON.parse(localStorage.getItem("notes")!).splice(-3),
+      });
     }
   };
   addTask = (type: string) => {
@@ -83,10 +94,10 @@ class Home extends React.Component<any, Istate> {
     this.fetchAllTask();
   };
   render() {
-    const { list } = this.state;
+    const { list, notes } = this.state;
     let listIsEmpty = Object.keys(list).length === 0;
     return (
-      <div className="app">
+      <div className="app d-sm-flex">
         <main className="project">
           <div className="project-info">
             <h1>Homepage Design</h1>
@@ -180,7 +191,18 @@ class Home extends React.Component<any, Istate> {
             </div>
           </div>
         </main>
-        <aside className="task-details">A</aside>
+        <aside className="task-details">
+          <Conditional checkRender={notes.length > 0}>
+            <div>
+              {notes.map((note: any) => (
+                <Note {...note} />
+              ))}
+            </div>
+          </Conditional>
+          <Conditional checkRender={notes.length === 0}>
+            <span>no notes</span>
+          </Conditional>
+        </aside>
       </div>
     );
   }
