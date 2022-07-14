@@ -33,27 +33,25 @@ class Home extends React.Component<any, Istate> {
         taskTitle: "",
         type: "",
         status: type,
-        isEdit: true,
+        editStatus: "edit",
       });
     else {
-      console.log("nabud");
       list[type] = [
         {
           id: uuidv4(),
           taskTitle: "",
           type: "",
           status: type,
-          isEdit: true,
+          editStatus: "edit",
         },
       ];
     }
     console.log("after", list[type]);
     this.setState({ list });
   };
-  updateTask = (type: string, task: any) => {
+  insertTask = (type: string, task: any) => {
     const { list } = this.state;
     let tasks = [];
-    console.log(type, task);
     if (localStorage.getItem("tasks"))
       tasks = JSON.parse(localStorage.getItem("tasks")!);
     tasks.push(task);
@@ -66,6 +64,14 @@ class Home extends React.Component<any, Istate> {
       tasks.findIndex((x: any) => x.id === id),
       1
     );
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    this.fetchAllTask();
+  };
+
+  updateTask = (task: any) => {
+    let tasks = JSON.parse(localStorage.getItem("tasks")!);
+    let index = tasks.findIndex((x: any) => x.id === task.id);
+    tasks[index] = task;
     localStorage.setItem("tasks", JSON.stringify(tasks));
     this.fetchAllTask();
   };
@@ -113,8 +119,9 @@ class Home extends React.Component<any, Istate> {
                 list.backlog.map((lst: any) => (
                   <Task
                     {...lst}
-                    updateTask={this.updateTask}
+                    insertTask={this.insertTask}
                     deleteTask={this.deleteTask}
+                    updateTask={this.updateTask}
                     changeStatus={this.changeStatus}
                   />
                 ))}
@@ -138,8 +145,9 @@ class Home extends React.Component<any, Istate> {
                 list.inprogres.map((lst: any) => (
                   <Task
                     {...lst}
-                    updateTask={this.updateTask}
+                    insertTask={this.insertTask}
                     deleteTask={this.deleteTask}
+                    updateTask={this.updateTask}
                     changeStatus={this.changeStatus}
                   />
                 ))}
@@ -163,8 +171,9 @@ class Home extends React.Component<any, Istate> {
                 list.done.map((lst: any) => (
                   <Task
                     {...lst}
-                    updateTask={this.updateTask}
+                    insertTask={this.insertTask}
                     deleteTask={this.deleteTask}
+                    updateTask={this.updateTask}
                     changeStatus={this.changeStatus}
                   />
                 ))}

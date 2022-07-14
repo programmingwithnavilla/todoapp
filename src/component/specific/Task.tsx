@@ -7,9 +7,10 @@ interface ITask {
   taskTitle: string;
   prority: string;
   status: string;
-  isEdit: Boolean;
-  updateTask: Function;
+  editStatus: string;
+  insertTask: Function;
   deleteTask: Function;
+  updateTask: Function;
   changeStatus: Function;
 }
 const Task = ({
@@ -17,17 +18,19 @@ const Task = ({
   taskTitle,
   prority,
   status,
-  isEdit,
+  editStatus,
+  insertTask,
   updateTask,
   deleteTask,
   changeStatus,
 }: ITask): JSX.Element => {
   let [title, setTitle] = useState("");
   let [prorityTask, setPrority] = useState("low");
+  let [isEdit, setIsEdit] = useState(false);
   return (
     <div className={"task"} draggable="true">
       <div className="task__tags">
-        <Conditional checkRender={!isEdit}>
+        <Conditional checkRender={editStatus === "" && !isEdit}>
           <>
             <button
               className="btn-task  task-delete mx-1"
@@ -40,7 +43,8 @@ const Task = ({
             <button
               className="btn-task  task-edit mx-1"
               onClick={() => {
-                deleteTask(status, id);
+                setIsEdit(true);
+                setTitle(taskTitle);
               }}
             >
               Edit
@@ -77,7 +81,7 @@ const Task = ({
             </Conditional>
           </>
         </Conditional>
-        <Conditional checkRender={isEdit}>
+        <Conditional checkRender={editStatus !== "" || isEdit}>
           <div className="col d-flex justify-content-between">
             <button
               className={`
@@ -109,7 +113,7 @@ const Task = ({
           </div>
         </Conditional>
       </div>
-      <Conditional checkRender={isEdit}>
+      <Conditional checkRender={editStatus === "edit"}>
         <input
           placeholder="Enter a title for this card…"
           className="col-12 rounded border p-1 mt-3 border-0"
@@ -118,13 +122,12 @@ const Task = ({
             setTitle(event.currentTarget.value);
           }}
           onKeyUp={(event) => {
-            console.log("id", id);
             if (event.key === "Enter") {
-              updateTask(status, {
+              insertTask(status, {
                 id,
                 taskTitle: title,
                 prority: prorityTask,
-                isEdit: false,
+                editStatus: "",
                 status: status,
               });
               setTitle("");
@@ -133,7 +136,30 @@ const Task = ({
           }}
         />
       </Conditional>
-      <Conditional checkRender={!isEdit}>
+      <Conditional checkRender={isEdit}>
+        <input
+          className="col-12 rounded border p-1 mt-3 border-0"
+          value={title}
+          onChange={(event) => {
+            setTitle(event.currentTarget.value);
+          }}
+          onKeyUp={(event) => {
+            if (event.key === "Enter") {
+              updateTask({
+                id,
+                taskTitle: title,
+                prority: prorityTask,
+                editStatus: "",
+                status: status,
+              });
+              setIsEdit(false);
+              setTitle("");
+              setPrority("low");
+            }
+          }}
+        />
+      </Conditional>
+      <Conditional checkRender={editStatus === "" && !isEdit}>
         <>
           <p>{taskTitle}</p>
           <span className={`task__tag task__tag--${prority}`}>{prority}</span>

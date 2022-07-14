@@ -1,12 +1,15 @@
 import React from "react";
 import "./Siderbar.scss";
-type AppProps = {
-  message?: string;
-};
+import { useLocation } from "react-router-dom";
 
-const Sidebar = ({ message }: AppProps) => (
+const Sidebar = () => (
   <div className="app-sidebar d-flex flex-column align-items-center">
-    <a href="/profile" className="app-sidebar-link active">
+    <a
+      href="/"
+      className={`app-sidebar-link ${
+        useLocation().pathname === "/" && "active"
+      }`}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={24}
@@ -40,7 +43,12 @@ const Sidebar = ({ message }: AppProps) => (
         <path d="M21.21 15.89A10 10 0 118 2.83M22 12A10 10 0 0012 2v10z" />
       </svg>
     </a>
-    <a href="/profile" className="app-sidebar-link">
+    <a
+      href="/note"
+      className={`app-sidebar-link ${
+        useLocation().pathname === "/note" && "active"
+      }`}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={24}
@@ -59,7 +67,12 @@ const Sidebar = ({ message }: AppProps) => (
         <line x1={3} y1={10} x2={21} y2={10} />
       </svg>
     </a>
-    <a href="/profile" className="app-sidebar-link">
+    <a
+      href="/profile"
+      className={`app-sidebar-link ${
+        useLocation().pathname === "/profile" && "active"
+      }`}
+    >
       <svg
         className="link-icon"
         xmlns="http://www.w3.org/2000/svg"
