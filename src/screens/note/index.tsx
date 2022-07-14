@@ -203,20 +203,30 @@ class Note extends React.Component<any, IState> {
                 <div className="col d-flex">
                   <button
                     className={`circle bg-yellow
-                  ${note.isEdit && background === "bg-yellow" ? "shadow" : ""}
+                  ${
+                    (note.isEdit || note.editStatus === "insert") &&
+                    background === "bg-yellow"
+                      ? "shadow"
+                      : ""
+                  }
                   `}
                     onClick={() => {
-                      if (note.isEdit) {
+                      if (note.isEdit || note.editStatus === "insert") {
                         this.setState({ background: "bg-yellow" });
                       }
                     }}
                   />
                   <button
                     className={`circle bg-purple
-                  ${note.isEdit && background === "bg-purple" ? "shadow" : ""}
+                  ${
+                    (note.isEdit || note.editStatus === "insert") &&
+                    background === "bg-purple"
+                      ? "shadow"
+                      : ""
+                  }
                   `}
                     onClick={() => {
-                      if (note.isEdit) {
+                      if (note.isEdit || note.editStatus === "insert") {
                         this.setState({ background: "bg-purple" });
                       }
                     }}
@@ -224,30 +234,45 @@ class Note extends React.Component<any, IState> {
                   <button
                     className={`
                   circle bg-blue
-                   ${note.isEdit && background === "bg-blue" ? "shadow" : ""}
+                   ${
+                     (note.isEdit || note.editStatus === "insert") &&
+                     background === "bg-blue"
+                       ? "shadow"
+                       : ""
+                   }
                   `}
                     onClick={() => {
-                      if (note.isEdit) {
+                      if (note.isEdit || note.editStatus === "insert") {
                         this.setState({ background: "bg-blue" });
                       }
                     }}
                   />
                   <button
                     className={`circle bg-pink
-                  ${note.isEdit && background === "bg-pink" ? "shadow" : ""}
+                  ${
+                    (note.isEdit || note.editStatus === "insert") &&
+                    background === "bg-pink"
+                      ? "shadow"
+                      : ""
+                  }
                   `}
                     onClick={() => {
-                      if (note.isEdit) {
+                      if (note.isEdit || note.editStatus === "insert") {
                         this.setState({ background: "bg-pink" });
                       }
                     }}
                   />
                   <button
                     className={`circle bg-green 
-                  ${note.isEdit && background === "bg-green" ? "shadow" : ""}
+                  ${
+                    (note.isEdit || note.editStatus === "insert") &&
+                    background === "bg-green"
+                      ? "shadow"
+                      : ""
+                  }
                   `}
                     onClick={() => {
-                      if (note.isEdit) {
+                      if (note.isEdit || note.editStatus === "insert") {
                         this.setState({ background: "bg-green" });
                       }
                     }}
