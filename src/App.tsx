@@ -7,7 +7,9 @@ import { useLocation } from "react-router-dom";
 import "./index.scss";
 
 const App = () => {
-  let isExcludedMatch = ["/signin", "/signup"].includes(useLocation().pathname);
+  let isExcludedMatch = ["/", "/signin", "/signup"].includes(
+    useLocation().pathname
+  );
   return (
     <div className="col d-flex flex-column">
       <Conditional checkRender={!isExcludedMatch}>

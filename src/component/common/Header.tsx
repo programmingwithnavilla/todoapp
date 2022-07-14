@@ -90,10 +90,10 @@ const Header = ({ message }: AppProps) => (
       </button>
       <button className="profile-btn d-flex align-items-center border-0 p-0">
         <img
-          src="https://assets.codepen.io/3306515/IMG_2025.jpg"
+          src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHw%3D&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60"
           alt="userImage"
         />
-        <span>Aybüke C.</span>
+        <span>Navid</span>
       </button>
     </div>
   </div>

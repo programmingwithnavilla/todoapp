@@ -1,16 +1,19 @@
 import React, { Component, FormEvent } from "react";
 import AuthBox from "../../component/common/AuthBox";
+import { Conditional } from "../../utils/consts";
 import { withRouter } from "../../Hoc/WithRouter";
 import "./signin.scss";
 
 interface IState {
   userName: string;
   password: string;
+  error: any;
 }
 class Signin extends Component<any, IState> {
   state: IState = {
     userName: "",
     password: "",
+    error: {},
   };
 
   inputOnchange = (event: FormEvent<HTMLInputElement>) => {
@@ -19,23 +22,66 @@ class Signin extends Component<any, IState> {
     this.setState(newState);
   };
   signin = () => {
-    const { userName, password } = this.state;
-
-    if (localStorage.getItem("users")) {
-      let users = JSON.parse(localStorage.getItem("users")!);
-      if (
-        users.find(
-          (user: any) =>
-            user.userName === userName && user.password === password
-        )
-      ) {
-        this.props.navigate("/home");
-      } else console.error("ss");
-    } else console.error("ss");
+    const { userName, password, error } = this.state;
+    if (this.handleValidation()) {
+      if (localStorage.getItem("users")) {
+        let users = JSON.parse(localStorage.getItem("users")!);
+        if (
+          users.find(
+            (user: any) =>
+              user.userName === userName && user.password === password
+          )
+        ) {
+          this.props.navigate("/home");
+        } else {
+          error.user = "user not found";
+          this.setState({ error });
+        }
+      } else {
+        error.user = "user not found";
+        this.setState({ error });
+      }
+    }
   };
+  handleValidation() {
+    const { password, userName } = this.state;
+    let errors: any = {};
+    let formIsValid = true;
+    let regUserName = new RegExp("^([a-zA-Z0-9]){8,}$");
+    let regPass = new RegExp("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$");
+    //userName
+    if (!userName) {
+      formIsValid = false;
+      errors["userName"] = "Cannot be empty";
+    }
 
+    if (typeof userName !== "undefined") {
+      if (!regUserName.test(userName)) {
+        formIsValid = false;
+        errors["userName"] =
+          "must include 8 characters 1 uppercase 1 lowercase and 1 digit";
+      }
+    }
+
+    //Password
+    if (!password) {
+      formIsValid = false;
+      errors["password"] = "Password cannot be empty";
+    }
+
+    if (typeof password !== "undefined") {
+      if (!regPass.test(password)) {
+        formIsValid = false;
+        errors["password"] =
+          "must include 8 characters 1 uppercase 1 lowercase and 1 digit";
+      }
+    }
+
+    this.setState({ error: errors });
+    return formIsValid;
+  }
   render() {
-    const { userName, password } = this.state;
+    const { userName, password, error } = this.state;
     return (
       <section className="h-100 gradient-form">
         <div className="container py-4 py-sm-5 h-100">
@@ -70,6 +116,11 @@ class Signin extends Component<any, IState> {
                             onChange={this.inputOnchange}
                             className="form-control"
                           />
+                          <Conditional checkRender={error.userName}>
+                            <span className="text-danger">
+                              {error.userName}
+                            </span>
+                          </Conditional>
                         </div>
                         <div className="form-outline mb-4">
                           <label
@@ -86,6 +137,11 @@ class Signin extends Component<any, IState> {
                             id="form2Example22"
                             className="form-control"
                           />
+                          <Conditional checkRender={error.password}>
+                            <span className="text-danger">
+                              {error.password}
+                            </span>
+                          </Conditional>
                         </div>
                         <div className="text-center pt-1 mb-5 pb-1">
                           <button
@@ -95,9 +151,9 @@ class Signin extends Component<any, IState> {
                           >
                             Log in
                           </button>
-                          <a className="text-muted" href="#!">
-                            Forgot password?
-                          </a>
+                          <Conditional checkRender={error.user}>
+                            <span className="text-danger">{error.user}</span>
+                          </Conditional>
                         </div>
                         <div className="d-flex align-items-center justify-content-center pb-4">
                           <p className="mb-0 me-2">Don't have an account?</p>

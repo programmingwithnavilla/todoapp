@@ -53,7 +53,7 @@ const Task = ({
               <button
                 className="btn-task  task-done mx-1"
                 onClick={() => {
-                  changeStatus("Inprogress", id);
+                  changeStatus("inprogres", id);
                 }}
               >
                 Inprogres

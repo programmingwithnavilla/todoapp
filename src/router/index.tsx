@@ -17,7 +17,7 @@ const Router = () => {
     <Suspense fallback={<div>loading</div>}>
       <Routes>
         {/* <Navbar /> */}
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Signin />} />
         <Route path={generalRoutes.home} element={<Home />} />
         <Route path={noteRoutes.note} element={<Note />} />
         <Route path={profileRoutes.profile} element={<Profile />} />

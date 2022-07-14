@@ -101,14 +101,6 @@ class Home extends React.Component<any, Istate> {
         <main className="project">
           <div className="project-info">
             <h1>Homepage Design</h1>
-            <div className="project-participants">
-              <span />
-              <span />
-              <span />
-              <button className="project-participants__add">
-                Add Participant
-              </button>
-            </div>
           </div>
           <div className="project-tasks">
             <div className="project-column px-3">

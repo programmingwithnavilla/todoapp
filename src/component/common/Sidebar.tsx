@@ -5,9 +5,9 @@ import { useLocation } from "react-router-dom";
 const Sidebar = () => (
   <div className="app-sidebar d-flex flex-column align-items-center">
     <a
-      href="/"
+      href="/home"
       className={`app-sidebar-link ${
-        useLocation().pathname === "/" && "active"
+        useLocation().pathname === "/home" && "active"
       }`}
     >
       <svg
