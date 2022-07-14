@@ -1,4 +1,5 @@
 import React, { Component, FormEvent } from "react";
+import AuthBox from "../../component/common/AuthBox";
 import { withRouter } from "../../Hoc/WithRouter";
 import "./signup.scss";
 interface IState {
@@ -43,7 +44,7 @@ class Signup extends Component<any, IState> {
               <div className="card rounded-lg text-black">
                 <div className="row g-0">
                   <div className="col-lg-6">
-                    <div className="card-body p-md-3 mx-md-4">
+                    <div className="card-body py-md-3 px-md-5 mx-md-4">
                       <div className="text-center">
                         <img
                           src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
@@ -133,16 +134,7 @@ class Signup extends Component<any, IState> {
                     </div>
                   </div>
                   <div className="col-lg-6 d-none d-lg-flex align-items-center gradient-custom-2">
-                    <div className="text-white px-3 py-4 p-md-5 mx-md-4">
-                      <h4 className="mb-4">We are more than just a company</h4>
-                      <p className="small mb-0">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis
-                        nostrud exercitation ullamco laboris nisi ut aliquip ex
-                        ea commodo consequat.
-                      </p>
-                    </div>
+                    <AuthBox />
                   </div>
                 </div>
               </div>
